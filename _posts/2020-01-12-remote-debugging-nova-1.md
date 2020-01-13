@@ -2,12 +2,12 @@
 layout: post
 cover: 'assets/images/cover1.jpg'
 navigation: True
-title: Remote Debugging: Nova (1)
+title: Remote Debugging - Nova (1)
 date: 2020-01-12 12:00:00
 tags: openstack
 subclass: 'post tag-test tag-content'
 logo: 'assets/images/ghost.png'
-categories: python
+categories: openstack
 ---
 
 # Remote Debugging: Nova (1)
