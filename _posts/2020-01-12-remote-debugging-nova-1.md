@@ -4,13 +4,12 @@ cover: 'assets/images/cover1.jpg'
 navigation: True
 title: Remote Debugging - Nova (1)
 date: 2020-01-12 12:00:00
-tags: openstack
+tags: openstack nova
 subclass: 'post tag-test tag-content'
 logo: 'assets/images/ghost.png'
 categories: openstack
 ---
 
-# Remote Debugging: Nova (1)
 
 이 문서에서는 OpenStack 개발시 필요한 디버깅 방법에 대해 다룬다. 특히 라이선스 구매가 필요한 Pycharm 대신 공개 소프트웨어인 Visual Studio Code를 통해 Queens 버전 OpenStack 디버깅하는 방법을 다룬다.
 
@@ -26,21 +25,21 @@ OpenStack을 디버깅하는 경우 이러한 원격 개발 기능은 절실히 
 
 당연히 로컬 PC에는 Visual Studio Code가 설치되어야 한다. [공식 홈페이지](https://code.visualstudio.com/Download)에서 PC의 OS에 맞는 버전을 내려받아 설치하도록 하자. Visual Studio Code는 멀티 플랫폼을 지원하는 electron 기반으로 개발되었기 때문에 Windows, Mac 뿐만 아니라 Linux 배포판들도 지원한다.
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_Debugging_-_Download_Visual_Code.png](assets/images/openstack/Visual_Code_Remote_Debugging_-_Download_Visual_Code.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_Debugging_-_Download_Visual_Code.png](assets/images/openstack/nova/Visual_Code_Remote_Debugging_-_Download_Visual_Code.png)
 
 Visual Code가 설치되면 Python 및 Remote-SSH 확장 기능을 설치한다. 사이드 바의 마켓플레이스 아이콘을 선택하여 확장 기능 뷰를 열어 Remote - SSH를 검색한 다음 설치하자. 개발자가 Microsoft로 등록된 공식 확장 기능을 찾아 설치해야 한다.
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_Debugging_-_Install_Remote_-_SSH_Extension.png](assets/images/openstack/Visual_Code_Remote_Debugging_-_Install_Remote_-_SSH_Extension.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_Debugging_-_Install_Remote_-_SSH_Extension.png](assets/images/openstack/nova/Visual_Code_Remote_Debugging_-_Install_Remote_-_SSH_Extension.png)
 
 Visual Code Remote Debugging - Install Remote - SSH Extension
 
 Remote - SSH 확장 기능을 설치 하면 사이드 바에 Remote Explorer 아이콘이 생긴다.
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_04.png](assets/images/openstack/Visual_Code_Remote_SSH_04.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_04.png](assets/images/openstack/nova/Visual_Code_Remote_SSH_04.png)
 
 설치한 Remote - SSH 확장 기능을 이용하기 위해서는 로컬 PC에 SSH 클라이언트가 설치되어야 한다. Mac 이나 Linux의 경우 기본적으로 SSH 클라이언트가 설치되어 있어 따로 설치할 필요는 없다. 그러나 Windows의 경우 따로 설치가 필요하다. 설정 > 앱 > 앱 및 기능 으로 이동하여 “선택적 기능”을 선택한다.
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_Debugging_-_Install_SSH_Client_on_Windows.png](assets/images/openstack/Visual_Code_Remote_Debugging_-_Install_SSH_Client_on_Windows.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_Debugging_-_Install_SSH_Client_on_Windows.png](assets/images/openstack/nova/Visual_Code_Remote_Debugging_-_Install_SSH_Client_on_Windows.png)
 
 그런 다음 “기능 추가”를 선택하여 “OpenSSH 클라이언트”를 설치하자.
 
@@ -74,21 +73,21 @@ Remote - SSH 확장 기능을 설치 하면 사이드 바에 Remote Explorer 아
 
 이제 원격지 호스트를 등록하자. Visual Studio Code를 실행한 후 사이드 바에서 Remote Explorer를 선택한다. 다음 "+" 아이콘을 선택하여 SSH host 등록 창을 연다. 또는 Command Palette (`F1`)을 통해 "**Remote SSH: Connect to Host...**"를 선택해도 된다. 등록 창이 뜨면 원격지 서버 접근 계정과 호스트명을 적어주자.
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_03.png](assets/images/openstack/Visual_Code_Remote_SSH_03.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_03.png](assets/images/openstack/nova/Visual_Code_Remote_SSH_03.png)
 
 만약 SSH 관련해서 추가로 해야 하는 설정이 있다면 Remote Explorer의 SSH TARGETS 바에서 톱니바퀴 아이콘을 선택한다. 그리고 SSH 관련 설정이 저장될 폴더 위치를 물어보는데 기본값을 선택하자. 그럼 아래와 같이 설정할 수 있다.
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_05.png](assets/images/openstack/Visual_Code_Remote_SSH_05.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_05.png](assets/images/openstack/nova/Visual_Code_Remote_SSH_05.png)
 
 여기서는 SSH 접근 포트를 10022로 설정했기 때문에, 따로 SSH 접속 포트만 변경해서 등록해주었다. 
 
 모든 과정을 마치고 정상적으로 등록이 되면 원격지 서버에 접속한 후 VS Code Server 초기화 과정을 거친다. 모든 과정이 완료되면 Visual Studio Code 좌측 하단에 접속한 서버명이 나타난다.
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_07.png](assets/images/openstack/Visual_Code_Remote_SSH_07.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_07.png](assets/images/openstack/nova/Visual_Code_Remote_SSH_07.png)
 
 이 상태에서 File > Open... 을 선택하면 아래와 같이 원격지 서버의 계정 홈 폴더가 나타난다.
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_08.png](assets/images/openstack/Visual_Code_Remote_SSH_08.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_08.png](assets/images/openstack/nova/Visual_Code_Remote_SSH_08.png)
 
 여기서는 OpenStack Nova에 대한 디버깅을 하는 것이 목적이므로 Nova 폴더를 찾아서 열도록 하자. 아래와 같이 원격 서버에 설치된 Nova Python 패키지 경로를 찾아서 열도록 하자. 아래 그림에서 연결한 서버는 Ubuntu 18.04가 설치되어 있으므로 Nova 패키지는 `/usr/lib/python2.7/dist-packages/nova`에 있다. CentOS의 경우는  `/usr/lib/python2.7/site-packages/nova`에 있다.
 
@@ -96,7 +95,7 @@ Remote - SSH 확장 기능을 설치 하면 사이드 바에 Remote Explorer 아
 
 여기서는 `nova-api`를 디버깅 하기 때문에 `attach`타입을 선택해야 한다. 이는 `nova-api` 서비스가 메인 프로세스에서 최소 1 개 이상의 자식 프로세스를 생성하여 구동하기 때문이다. 실제로 `launch`타입으로 `nova-api` 서비스를 디버깅할 경우, 오직 메인 프로세스의 내용만 접근 가능하다. (메인 프로세스의 역할은 자식 프로세스를 띄우는 것에 불과하므로 유용한 정보는 거의 없다.)
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_10.png](assets/images/openstack/Visual_Code_Remote_SSH_10.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_10.png](assets/images/openstack/nova/Visual_Code_Remote_SSH_10.png)
 
     {
         "version": "0.2.0",
@@ -176,15 +175,15 @@ Nova 서비스를 Visual Studio Code를 통해 디버깅하기 위해서는 몇 
 
 앞 서 설정한 디버깅 프로파일을 실행하여 원격지 서버의 ptvsd 서버로 붙도록 하자. 사이드 바의 DEBUG AND RUN 아이콘을 선택하여 프로파일을 실행한다. 정상적으로 실행되면 하단 라인의 색이 주황색으로 바뀌고, 상단에 디버깅용 아이콘 패널이 나타난다.
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_11.png](assets/images/openstack/Visual_Code_Remote_SSH_11.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_11.png](assets/images/openstack/nova/Visual_Code_Remote_SSH_11.png)
 
 이제 원하는 코드를 열고 브레이크 포인트를 걸어보자. 그리고 해당 브레이크 포인트로 진입하는 API 호출 또는 명령어를 실행한다. 여기서는 Flavor 상세 조회에 브레이크 포인트를 걸고 Flavor 조회를 실행한다. 그러면 아래와 같이 브레이크 포인트 지점에서 멈추고 변수 보기, 코드 실행 등을 수행할 수 있다.
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_12.png](assets/images/openstack/Visual_Code_Remote_SSH_12.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_12.png](assets/images/openstack/nova/Visual_Code_Remote_SSH_12.png)
 
 디버깅을 마치고 원격지 서버와의 접근을 끊기 위해서는 좌측 하단의 "SSH:..."를 클릭하여 Remote-SSH 메뉴를 연다. 메뉴의 마지막 항목인 Close Remote Connection 을 선택하면 서버와의 접속이 종료된다.
 
-![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_13.png](assets/images/openstack/Visual_Code_Remote_SSH_13.png)
+![Remote%20Debugging%20Nova%201/Visual_Code_Remote_SSH_13.png](assets/images/openstack/nova/Visual_Code_Remote_SSH_13.png)
 
 ## 참고 문서
 
