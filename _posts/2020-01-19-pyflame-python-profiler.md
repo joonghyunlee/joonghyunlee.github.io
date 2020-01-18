@@ -2,7 +2,7 @@
 layout: post
 cover: 'assets/images/cover2.jpg'
 navigation: True
-title: Pyflame - Uber's Ptracing Profiler
+title: Pyflame - Ptracing Profiler
 date: 2020-01-19 12:00:00
 tags: python debugging ptrace
 subclass: 'post tag-test tag-content'
