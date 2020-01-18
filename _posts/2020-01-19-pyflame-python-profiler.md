@@ -7,6 +7,7 @@ date: 2020-01-19 12:00:00
 tags: python debugging ptrace
 subclass: 'post tag-test tag-content'
 logo: 'assets/images/ghost.png'
+disqus: true
 categories: python
 ---
 
