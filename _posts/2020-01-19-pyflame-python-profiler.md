@@ -2,14 +2,13 @@
 layout: post
 cover: 'assets/images/cover2.jpg'
 navigation: True
-title: Pyflame: Uber's Ptracing Profiler
+title: Pyflame - Uber's Ptracing Profiler
 date: 2020-01-19 12:00:00
 tags: python debugging ptrace
 subclass: 'post tag-test tag-content'
 logo: 'assets/images/ghost.png'
 categories: python
 ---
-
 
 
 이 문서는 실행 중인 Python 어플리케이션을 프로파일링하기 위한 Pyflame에 대해 설명한다. 먼저 Pyframe을 이용한 프로파일링을 실습해보고, Pyflame의 동작 방식에 대해 알아보도록 한다.
