@@ -7,6 +7,7 @@ date: 2020-01-12 12:00:00
 tags: openstack nova
 subclass: 'post tag-test tag-content'
 logo: 'assets/images/ghost.png'
+author: joonghyun.lee
 disqus: true
 categories: openstack
 ---
