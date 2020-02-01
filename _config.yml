@@ -14,12 +14,12 @@ short_url: 'joonghyunlee.github.io'
 google_analytics: UA-69281367-1
 disqus: joonghyunlee
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
-baseurl: https://joonghyunlee.github.io/
+baseurl: /
 
 # Permalinks
 permalink: /:title
-# permalink: /author/:username
-# permalink: /tag/:tag
+#permalink: /author/:username
+#permalink: /tag/:tag
 
 # gems and other configs
 plugins: [jekyll-paginate]
@@ -49,8 +49,8 @@ username: joonghyunlee
 repo: joonghyunlee.github.io
 branch: master
 relative_source: ./
-destination: ./jasper/
-production_url:  https://joonghyunlee.github.io/jasper/
+destination: ./_site
+production_url:  https://joonghyunlee.github.io/
 source_url:  https://github.com/joonghyunlee/joonghyunlee.github.io/
 
 exclude:

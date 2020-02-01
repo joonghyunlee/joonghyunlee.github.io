@@ -6,9 +6,8 @@ services:
         container_name: joonghyunlee.github.io
         environment:
             - JEKYLL_ENV=docker
-        command: jekyll serve --force_polling --livereload
+        command: jekyll serve --watch --force_polling --verbose
         ports:
             - 4000:4000
-            - 35729:35729
         volumes:
             - ../:/srv/jekyll
