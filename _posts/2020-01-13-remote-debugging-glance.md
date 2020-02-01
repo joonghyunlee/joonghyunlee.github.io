@@ -1,14 +1,15 @@
 ---
 layout: post
 cover: 'assets/images/cover2.jpg'
-navigation: True
-title: Remote Debugging - Glance
+navigation: true
+title: 'Remote Debugging for OpenStack: glance-api'
 date: 2020-01-12 12:00:00
 tags: openstack glance
-subclass: 'post tag-test tag-content'
+subclass: 'post tag-openstack'
 logo: 'assets/images/ghost.png'
+author: joonghyunlee
 disqus: true
-categories: openstack
+categories: joonghyunlee
 ---
 
 

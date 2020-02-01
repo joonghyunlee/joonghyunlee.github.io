@@ -2,13 +2,14 @@
 layout: post
 cover: 'assets/images/cover2.jpg'
 navigation: True
-title: Pyflame - Ptracing Profiler
+title: 'Pyflame: Python CPU Profiler'
 date: 2020-01-19 12:00:00
 tags: python debugging ptrace
-subclass: 'post tag-test tag-content'
+subclass: 'post tag-python'
 logo: 'assets/images/ghost.png'
+author: joonghyunlee
 disqus: true
-categories: python
+categories: joonghyunlee
 ---
 
 

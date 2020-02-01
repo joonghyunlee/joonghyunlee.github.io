@@ -2,14 +2,14 @@
 layout: post
 cover: 'assets/images/cover1.jpg'
 navigation: True
-title: Remote Debugging - Nova (1)
+title: 'Remote Debugging for OpenStack: nova-api'
 date: 2020-01-12 12:00:00
 tags: openstack nova
-subclass: 'post tag-test tag-content'
+subclass: 'post tag-openstack tag-nova'
 logo: 'assets/images/ghost.png'
-author: joonghyun.lee
+author: joonghyunlee
 disqus: true
-categories: openstack
+categories: joonghyunlee
 ---
 
 
