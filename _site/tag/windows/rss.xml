@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+   
+      <title>joonghyunlee.github.io</title>
+   
+   <link></link>
+   <description>A beautiful narrative written with the world's most elegant publishing platform. The story begins here.</description>
+   <language>en-uk</language>
+   <managingEditor> </managingEditor>
+   <atom:link href="rss" rel="self" type="application/rss+xml" />
+   
+	<item>
+	  <title>Windows Terminal</title>
+	  <link>//windows-terminal</link>
+	  <author></author>
+	  <pubDate>2020-01-31T18:00:00-06:00</pubDate>
+	  <guid>//windows-terminal</guid>
+	  <description><![CDATA[
+	     <p>Terminal은 MicroSoft에서 기존 명령 프롬프트 및 PowerShell 터미널을 대체하고자 새로 출시한 터미널 프로그램이다.
+기존 내장 터미널은 기능적이나 미적으로나 Mac/Linux 용 터미널에 비해 매우 떨어져 있던 것이 사실이다.
+이에 반해 Terminal은 최신 터미널 프로그램에서 제공하는 다양한 기능을 제공할 뿐만 아니라 WSL까지도 지원하여 보다 나은 개발 환경을 제공한다.
+개인적으로 WSL을 사용하면서 폰트 설정이나 개인화 설정이 불편을 겪었던 기억이 있어서, Terminal을 적극적으로 활용해보려고 노력해보았다.</p>
+
+<h2 id="설치-방법">설치 방법</h2>
+
+<p>Terminal 앱 설치 방법은 간단하다. MS 스토어에서 <code class="highlighter-rouge">Windows Terminal</code>을 검색하여 내려받자.</p>
+
+<p><img src="assets/images/utilities/Terminal00.png" alt="Windows%20Terminal/Untitled.png" /></p>
+
+<h2 id="기본-프로파일-변경">기본 프로파일 변경</h2>
+
+<p>Windows Terminal은 프로파일별로 원하는 Shell을 등록할 수 있게 되어 있다. 기본적으로 등록된 프로파일에는 <strong>Windows PowerShell</strong>, <strong>Command Prompt</strong>, <strong>WSL</strong> 등이 있다.</p>
+
+<p>여기서는 WSL 프로파일을 기본으로 하도록 설정을 바꿔보자. Windows Terminal을 실행한 후 설정을 열자. 단축키 <code class="highlighter-rouge">Ctrl + ,</code>을 누르거나 상단 메뉴를 선택하여 설정을 열자.</p>
+
+<p><img src="assets/images/utilities/Terminal01.png" alt="Windows%20Terminal/Untitled%201.png" /></p>
+
+<p>그러면 아래와 같이 메모장이 열리면서 설정 파일이 나타난다.</p>
+
+<p><img src="assets/images/utilities/Terminal02.png" alt="Windows%20Terminal/Untitled%202.png" /></p>
+
+<p>이 설정에 대한 기본 포맷은 설정파일 상단의 링크(<a href="https://aka.ms/terminal-profiles-schema">https://aka.ms/terminal-profiles-schema</a>)를 참조하자.</p>
+
+<p>설정의 <code class="highlighter-rouge">profiles</code> 필드에 등록된 프로파일에 대한 설정들이 나와 있다. 이 프로파일들 중 WSL에 해당하는 프로파일을 찾아서 <code class="highlighter-rouge">guid</code> 값을 확인한다. 이 값을 <code class="highlighter-rouge">defaultProfile</code>에 설정한다.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"defaultProfile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"profiles"</span><span class="p">:</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"guid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hidden"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ubuntu-18.04"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Windows.Terminal.Wsl"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>수정한 설정을 반영하려면 <code class="highlighter-rouge">Ctrl + s</code>를 눌러 저장하면 된다.</p>
+
+<h2 id="시작-폴더-변경">시작 폴더 변경</h2>
+
+<p>WSL 프로파일을 처음 시작해보면 시작 폴더가 Window의 사용자 홈 폴더(<code class="highlighter-rouge">%userprofile%</code>)로 되어 있다. 매번 WSL 사용자의 홈 폴더로 이동하기는 번거로우므로 시작하자마 WSL 사용자 홈 폴더로 이동하도록 해보자. 아래와 같이 WSL 프로파일에 <code class="highlighter-rouge">commandline</code> 속성을 추가한다.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"guid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"hidden"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"commandline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wsl ~"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ubuntu-18.04"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Windows.Terminal.Wsl"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<h2 id="프로파일-아이콘-변경">프로파일 아이콘 변경</h2>
+
+<p>이제 기본적인 설정은 끝났다. 다 좋은데 이상하게 WSL 프로파일 탭을 열면 아이콘이 펭귄으로 되어 있다. Linux의 상징이라 잘 못된 것은 아니지만 개인적으로는 무척 별로다.</p>
+
+<p><img src="assets/images/utilities/Terminal03.png" alt="Windows%20Terminal/Untitled%203.png" /></p>
+
+<p>이 아이콘을 Ubuntu 아이콘으로 변경해보자. 아이콘을 변경하려면 우선 Terminal이 읽을 수 있는 폴더에 아이콘을 복사해 두어야 한다. 특정 위치에 있는 폴더를 지정해도 좋지만 여기서는 Terminal의 AppData 폴더로 아이콘을 옮겨보자. Terminal의 AppData 폴더는 아래와 같다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\RoamingState
+</code></pre></div></div>
+<p>위의 경로로 이동하려면 Windows의 탐색기 경로 바에 입력하면 된다. 그럼 해당 위치로 이동할 수 있다.</p>
+
+<p><img src="assets/images/utilities/Terminal04.png" alt="Windows%20Terminal/Untitled%204.png" /></p>
+
+<p>이 폴더에 대체할 아이콘을 복사해두자. 여기서는 아래 이미지를 사용하였다.</p>
+
+<p><img src="assets/images/utilities/ubuntu.png" alt="Windows%20Terminal/ubuntu.png" /></p>
+
+<p>이제 WSL 프로파일에 다음과 같이 <code class="highlighter-rouge">icon</code> 항목을 추가하자. 저장하면 탭 아이콘이 변경될 것이다.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"guid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"hidden"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"commandline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wsl ~"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ubuntu-18.04"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ms-appdata:///roaming/ubuntu.png"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Windows.Terminal.Wsl"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<h2 id="탭-이름-변경">탭 이름 변경</h2>
+
+<p>아무런 설정을 하지 않으면 탭 이름이 프롬프트 명을 따라 간다. 만약 현재 경로가 길어지면 잘려서 보이는 문제가 있다.</p>
+
+<p><img src="assets/images/utilities/Terminal05.png" alt="Windows%20Terminal/Untitled%205.png" /></p>
+
+<p>역시 개인적인 취향으로는 차라리 고정 문구가 나오는 편이 좋을 것 같다. 여기서는 <strong>Ubuntu</strong>라고 출력하도록 하자. Ubuntu 파일에 다음 두 항목을 추가한다.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"tabTitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ubuntu"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"suppressApplicationTitle"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>저장하면 다음과 같이 반영된다. <del>편안</del></p>
+
+<p><img src="assets/images/utilities/Terminal06.png" alt="Windows%20Terminal/Untitled%206.png" /></p>
+
+<h2 id="처음-화면-크기-변경">처음 화면 크기 변경</h2>
+
+<p>최초 구동할 때 화면의 크기를 설정하고 싶다면 아래와 같이 설정한다.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://aka.ms/terminal-profiles-schema"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"globals"</span><span class="w"> </span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"initialCols"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"initialRows"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<h2 id="단축키-설정">단축키 설정</h2>
+
+<p>키 설정은 <code class="highlighter-rouge">keybindings</code> 필드에 등록하면 된다. 우선 탭 관리에 관한 단축키를 알아보자.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ctrl + shift + t</td>
+      <td>새 탭 열기</td>
+    </tr>
+    <tr>
+      <td>ctrl + shift + [1-8]</td>
+      <td>n번 째 프로파일 탭 열기</td>
+    </tr>
+    <tr>
+      <td>ctrl + shift + w</td>
+      <td>탭 닫기</td>
+    </tr>
+    <tr>
+      <td>ctrl + tab</td>
+      <td>다음 탭으로 이동</td>
+    </tr>
+    <tr>
+      <td>ctrl + shift + tab</td>
+      <td>이전 탭으로 이동</td>
+    </tr>
+    <tr>
+      <td>ctrl + alt + [1-8]</td>
+      <td>n번 째 탭으로 이동</td>
+    </tr>
+    <tr>
+      <td>ctrl + shift + space</td>
+      <td>탭 메뉴 열기</td>
+    </tr>
+    <tr>
+      <td>ctrl + shift + d</td>
+      <td>현재 탭 복제하기</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>위 단축키들은 아래와 같이 등록된다. 같은 기능에 대한 단축키들은 여러 개 등록할 수 있다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"keybindings" :
+  [
+      {
+          "command" : "closePane",
+          "keys" :
+          [
+              "ctrl+shift+w"
+          ]
+      }
+]
+</code></pre></div></div>
+<p>다음으로는 0.7 버전부터 추가된 Pane에 대한 단축키를 알아보자.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>단축키</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>alt + shift + <code class="highlighter-rouge">-</code></td>
+      <td>화면 수평 분할</td>
+    </tr>
+    <tr>
+      <td>alt + shift + <code class="highlighter-rouge">+</code></td>
+      <td>화면 수직 분할</td>
+    </tr>
+    <tr>
+      <td>alt + down</td>
+      <td>포커스 아래로 이동</td>
+    </tr>
+    <tr>
+      <td>alt + left</td>
+      <td>포커스 왼쪽으로 이동</td>
+    </tr>
+    <tr>
+      <td>alt + right</td>
+      <td>포커스 오른쪽으로 이동</td>
+    </tr>
+    <tr>
+      <td>alt + up</td>
+      <td>포커스 위로 이동</td>
+    </tr>
+    <tr>
+      <td>alt + shift + down</td>
+      <td>화면 크기 아래로 늘리기</td>
+    </tr>
+    <tr>
+      <td>alt + shift + left</td>
+      <td>화면 크기 왼쪽으로 늘리기</td>
+    </tr>
+    <tr>
+      <td>alt + shift + right</td>
+      <td>화면 크기 오른쪽으로 늘리기</td>
+    </tr>
+    <tr>
+      <td>alt + shift + up</td>
+      <td>화면 크기 위로 늘리기</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="테마-변경">테마 변경</h2>
+
+<p>마지막으로 테마 변경을 해보자. 기본적으로 제공하는 테마는 아래와 같다.</p>
+
+<ul>
+  <li>Campbell</li>
+  <li>One Half Dark</li>
+  <li>One Half Light</li>
+  <li>Solarized Dark</li>
+  <li>Solarized Light</li>
+</ul>
+
+<p>당연하게도 커스텀한 테마를 생성할 수도 있다. 커스텀 테마를 생성하려면 <code class="highlighter-rouge">schemes</code> 항목에 다음과 같이 추가해준다.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"schemes"</span><span class="w"> </span><span class="p">:</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"background"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#0C0C0C"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"black"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#0C0C0C"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"blue"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#0037DA"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"brightBlack"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#767676"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"brightBlue"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#3B78FF"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"brightCyan"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#61D6D6"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"brightGreen"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#16C60C"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"brightPurple"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#B4009E"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"brightRed"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#E74856"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"brightWhite"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#F2F2F2"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"brightYellow"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#F9F1A5"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cyan"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#3A96DD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"foreground"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#CCCCCC"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"green"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#13A10E"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Campbell"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"purple"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#881798"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"red"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#C50F1F"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"white"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#CCCCCC"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"yellow"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"#C19C00"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>또한 아래와 같이 설정할 수 도 있다. 이 때 <code class="highlighter-rouge">colors</code> 배열의 순서는 <strong>black</strong>, <strong>red</strong>, <strong>green</strong>, <strong>yellow</strong>, <strong>blue</strong>, <strong>magenta</strong>, <strong>cyan</strong>, <strong>white</strong>, <strong>bright black</strong>, <strong>bright red</strong>, <strong>bright green</strong>, <strong>bright yellow</strong>, <strong>bright blue</strong>, <strong>bright magenta</strong>, <strong>bright cyan</strong>, <strong>bright white</strong> 이다.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"schemes"</span><span class="w"> </span><span class="p">:</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UbuntuLegit"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"foreground"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#EEEEEE"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#2C001E"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"colors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"#4E9A06"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#CC0000"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#300A24"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#C4A000"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#3465A4"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#75507B"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#06989A"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#D3D7CF"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#555753"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#EF2929"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#8AE234"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#FCE94F"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#729FCF"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#AD7FA8"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#34E2E2"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"#EEEEEE"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>테마를 적용하려면 프로파일에 아래와 같이 <code class="highlighter-rouge">colorScheme</code> 항목을 추가한다.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"profiles"</span><span class="p">:</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"guid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hidden"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"commandline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wsl ~"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ubuntu-18.04"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"colorScheme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UbuntuLegit"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ms-appdata:///roaming/ubuntu.png"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"tabTitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ubuntu"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"suppressApplicationTitle"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Windows.Terminal.Wsl"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>테마 색상 설정을 확인하려면 아래의 스크립트를 실행하자.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nv">COLORS</span><span class="o">=(</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[30mBlack"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[31mRed"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[32mGreen"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[33mYellow"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[34mBlue"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[35mMagenta"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[36mCyan"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[37mWhite"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[90mBright Black"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[91mBright Red"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[92mBright Green"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[93mBright Yellow"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[94mBright Blue"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[95mBright Magenta"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[96mBright Cyan"</span>
+<span class="s2">"</span><span class="se">\e</span><span class="s2">[97mBright White"</span>
+<span class="o">)</span>
+
+<span class="k">for</span> <span class="o">((</span>i <span class="o">=</span> 0<span class="p">;</span> i &lt; <span class="k">${#</span><span class="nv">COLORS</span><span class="p">[@]</span><span class="k">}</span><span class="p">;</span> i++<span class="o">))</span>
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="nt">-e</span> <span class="k">${</span><span class="nv">COLORS</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span>
+<span class="k">done</span>
+</code></pre></div></div>
+<p>위 스크립트 실행 결과는 다음과 같다.</p>
+
+<p><img src="assets/images/utilities/Terminal07.png" alt="Windows%20Terminal/Untitled%207.png" /></p>
+
+<h2 id="참고-자료">참고 자료</h2>
+
+<ul>
+  <li><a href="https://aka.ms/terminal-profiles-schema">https://aka.ms/terminal-profiles-schema</a></li>
+  <li><a href="https://www.howtogeek.com/426346/how-to-customize-the-new-windows-terminal-app/">https://www.howtogeek.com/426346/how-to-customize-the-new-windows-terminal-app/</a></li>
+  <li><a href="https://devblogs.microsoft.com/commandline/windows-terminal-preview-v0-7-release/">https://devblogs.microsoft.com/commandline/windows-terminal-preview-v0-7-release/</a></li>
+</ul>
+
+	  ]]></description>
+	</item>
+
+
+</channel>
+</rss>

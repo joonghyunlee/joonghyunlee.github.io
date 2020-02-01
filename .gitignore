@@ -2,9 +2,8 @@
 .DS_Store
 
 # Jekyll build
-/_site/
+#/_site/
 .jekyll-metadata
-/deploy/
 #Gemfile.lock
 
 # webstorm
