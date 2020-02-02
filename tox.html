@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>Remote Debugging for OpenStack: cinder-api</title>
+    <title>Tox: Python Test Automation Framework</title>
     <meta name="description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
 
     <!-- Mobile Meta -->
@@ -26,31 +26,31 @@
     <style>.hljs { background: none; }</style>
 
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="//remote-debugging-cinder-1" />
+        <link rel="canonical" href="//tox" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Finding The Way Home" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Remote Debugging for OpenStack: cinder-api" />
+    <meta property="og:title" content="Tox: Python Test Automation Framework" />
     <meta property="og:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
-    <meta property="og:url" content="//remote-debugging-cinder-1" />
-    <meta property="og:image" content="/assets/images/cover5.jpg" />
+    <meta property="og:url" content="//tox" />
+    <meta property="og:image" content="/assets/images/cover4.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Remote Debugging for OpenStack: cinder-api" />
+    <meta name="twitter:title" content="Tox: Python Test Automation Framework" />
     <meta name="twitter:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
-    <meta name="twitter:url" content="//remote-debugging-cinder-1" />
-    <meta name="twitter:image:src" content="/assets/images/cover5.jpg" />
+    <meta name="twitter:url" content="//tox" />
+    <meta name="twitter:image:src" content="/assets/images/cover4.jpg" />
 
     <script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Finding The Way Home",
-    "name": "Remote Debugging for OpenStack: cinder-api",
-    "url": "//remote-debugging-cinder-1",
-    "image": "/assets/images/cover5.jpg",
+    "name": "Tox: Python Test Automation Framework",
+    "url": "//tox",
+    "image": "/assets/images/cover4.jpg",
     "description": "A beautiful narrative written with the world's most elegant publishing platform. The story begins here."
 }
     </script>
@@ -74,12 +74,6 @@
         <li class="nav-author " role="presentation"><a href="/author/joonghyunlee">Profile</a></li>
         <li class="nav-python " role="presentation"><a href="/tag/python">Python</a></li>
         <li class="nav-openstack " role="presentation"><a href="/tag/openstack">OpenStack</a></li>
-        <!--
-        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
-        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
-        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
-        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
-        -->
     </ul>
     <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
 </div>
@@ -97,7 +91,7 @@
 <!-- Everything inside the #post tags pulls data from the post -->
 <!-- #post -->
 
-<header class="main-header post-head " style="background-image: url(/assets/images/cover5.jpg) ">
+<header class="main-header post-head " style="background-image: url(/assets/images/cover4.jpg) ">
     <nav class="main-nav  overlay  clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
         
@@ -108,10 +102,10 @@
 
 <main class="content" role="main">
 
-    <article class="post tag-openstack tag-cinder">
+    <article class="post tag-python">
 
         <header class="post-header">
-            <h1 class="post-title">Remote Debugging for OpenStack: cinder-api</h1>
+            <h1 class="post-title">Tox: Python Test Automation Framework</h1>
             <section class="post-meta">
             <!-- <a href='/'></a> -->
 
@@ -126,11 +120,11 @@
                 on
                 
                     
-                       <a href='/tag/openstack'>Openstack</a>,
+                       <a href='/tag/python'>Python</a>,
                     
                 
                     
-                       <a href='/tag/cinder'>Cinder</a>
+                       <a href='/tag/test'>Test</a>
                     
                 
                 
@@ -139,66 +133,105 @@
 
         <section class="post-content">
 
-            <p>이 문서에서는 Cinder 원격 디버깅에 대해서 다룬다. 본격적으로 들어가기 앞서 아래 문서를 읽고 기본 구성을 갖추도록 하자.</p>
+            <p>Tox는 Python 프로젝트에 대한 테스트 자동화를 지원해주는 도구이다. Python 2 또는 3 등 다양한 환경에서의 테스트를 지원하고자 <code class="highlighter-rouge">virtualenv</code>를 기반으로 테스트 환경을 구성하고, 사전에 지정한 대로 테스트를 진행할 수 있게끔 해준다. Tox는 아래와 같이 <code class="highlighter-rouge">tox.ini</code>파일을 기반으로 설정하게 된다.</p>
 
-<p><a href="https://joonghyunlee.github.io/remote-debugging-nova-1">Remote Debugging for OpenStack: nova-api</a></p>
+<ul>
+  <li><code class="highlighter-rouge">tox.ini</code></li>
+</ul>
 
-<h3 id="cinder-설정-수정">Cinder 설정 수정</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># content of: tox.ini , put in same dir as setup.py
+[tox]
+envlist = py27,py36
 
-<p>Cinder API 역시 단일 프로세스로 서비스를 구동할 수 있다. 우선 Cinder 서비스를 멈춰두자. Queens의 cinder-api가 Apache httpd에 연동해서 서비스하므로 Apache httpd 서비스를 내린다.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl stop apache2.service
+[testenv]
+# install testing framework
+# ... or install anything else you might need here
+deps = pytest
+# run the tests
+# ... or run any other command line tool you need to run here
+commands = pytest
 </code></pre></div></div>
-<p>다음으로  단일 프로세스 모드로 구동하기 위해 설정(<code class="highlighter-rouge">/etc/cinder/cinder.conf</code>)을 아래와 같이 수정하자.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[DEFAULT]
-osapi_volume_workers = 1
+
+<h2 id="설정">설정</h2>
+
+<p>Tox의 동작을 보다 잘 이해하기 위해 우선 <code class="highlighter-rouge">tox.ini</code>파일의 내용을 살펴보자.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[tox]
+envlist = py27,py36
+install_command = pip install {opts} {packages}
 </code></pre></div></div>
-<h3 id="visual-studio-code-설정">Visual Studio Code 설정</h3>
+<p>가장 먼저 실행할 환경 목록을 기술한다. 위 설정 파일에서는 python 2.7/3.6을 지정하고 있다. 기본적으로 제공하고 있는 환경 목록은 아래와 같다.</p>
 
-<p>Remote Explorer에 <code class="highlighter-rouge">cinder-api</code>가 구동되는 서버를 등록한다.
-<img src="assets/images/openstack/cinder/Visual_Code_Remote_SSH_Cinder_01.png" alt="Remote%20Debugging%20Cinder/Visual_Code_Remote_SSH_Cinder_01.png" />
-원격지 서버에 접속한 후 Cinder 소스 코드 위치를 찾아서 연다. 아래 그림의 경우 Ubuntu 서버이기 때문에 <code class="highlighter-rouge">/usr/lib/python2.7/dist-packages/cinder</code>에 있다.
-<img src="assets/images/openstack/cinder/Visual_Code_Remote_SSH_Cinder_02.png" alt="Remote%20Debugging%20Cinder/Visual_Code_Remote_SSH_Cinder_02.png" />
-다음으로 디버깅 프로파일을 추가하자. 단일 프로세스 모드로 구동하기 때문에 <code class="highlighter-rouge">launch</code> 타입의 프로파일을 구성할 것이다. 사이드 바에서 Debug and Run 탭(Ctrl + Shift + D)으로 이동하여 다음과 같이 프로파일을 추가하자.
-<img src="assets/images/openstack/cinder/Visual_Code_Remote_SSH_Cinder_03.png" alt="Remote%20Debugging%20Cinder/Visual_Code_Remote_SSH_Cinder_03.png" /></p>
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"configurations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Python: cinder-api"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"request"</span><span class="p">:</span><span class="w"> </span><span class="s2">"launch"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"pythonPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/bin/python2"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"program"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/bin/cinder-wsgi"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"--port=8776"</span><span class="w">
-                </span><span class="s2">"--"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"--log-dir=/var/log/cinder"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"--config-file=/etc/cinder/cinder.conf"</span><span class="w">
-            </span><span class="p">],</span><span class="w">
-            </span><span class="s2">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="s2">"CINDER_LOCALEDIR"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/lib/python2.7/dist-packages/cinder/locale"</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="s2">"console"</span><span class="p">:</span><span class="w"> </span><span class="s2">"internalConsole"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"justMyCode"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"gevent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"redirectOutput"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-<p><code class="highlighter-rouge">cinder-api</code> 서비스는 위와 같이 구성한다. <code class="highlighter-rouge">env</code> 필드는 locale 설정을 위한 환경 변수를 정의하기 위해 추가해주었다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>py, py2, py27, py3, py34, py35, py36, py37, py38, jython, pypy, pypy2, pypy27, pypy3, pypy35
+</code></pre></div></div>
 
-<h3 id="cinder-api-디버깅">cinder-api 디버깅</h3>
+<p>위의 목록 중 <code class="highlighter-rouge">py</code> 의 경우 tox를 실행한 Python version을 사용하게 된다.</p>
 
-<p>설정한 디버깅 프로파일을 실행하면 <code class="highlighter-rouge">cinder-api</code>가 실행되고 디버깅 모드로 진입한다. 관찰할 코드에 브레이크 포인트를 설정하고 프로파일을 실행해 보자. 여기서는 볼륨 목록 조회하는 API에 브레이크 포인트를 걸어보았다.
-<img src="assets/images/openstack/cinder/Visual_Code_Remote_SSH_Cinder_04.png" alt="Remote%20Debugging%20Cinder/Visual_Code_Remote_SSH_Cinder_04.png" />
-TERMINAL 패널을 열어 Cinder CLI를 통해 이미지 조회를 해보자. 그럼 아래과 같이 브레이크 포인트가 있는 지점에 멈추고 디버깅을 진행할 수 있다.
-<img src="assets/images/openstack/cinder/Visual_Code_Remote_SSH_Cinder_05.png" alt="Remote%20Debugging%20Cinder/Visual_Code_Remote_SSH_Cinder_05.png" /></p>
+<p>다음으로 <code class="highlighter-rouge">[testenv]</code> 항목에는 모든 환경에서 공통적으로 실행할 설정들을 기술한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[testenv]
+# python interpreter
+basepython =
+   py26: python2.6
+   py27: python2.7
+# install testing framework
+# ... or install anything else you might need here
+deps = pytest
+# run the tests
+# ... or run any other command line tool you need to run here
+commands = pytest
+</code></pre></div></div>
+
+<p>다음으로 특정 환경을 지정하여 추가적으로 더할 설정들을 기술한다. 이를 위해 <code class="highlighter-rouge">[testenv:NAME]</code>와 같이 환경 이름을 지정한다. 각 필드 별로도 환경 이름이나 부분 문자열을 지정하면, tox가 매칭되는 환경을 찾아 지정한 설정을 적용한다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>deps =
+    pytest
+    django15: Django&gt;=1.5,&lt;1.6
+    django16: Django&gt;=1.6,&lt;1.7
+    django17: Django&gt;=1.7,&lt;1.8
+    django18: Django&gt;=1.8,&lt;1.9
+    py26: unittest2
+</code></pre></div></div>
+<p>위의 예제는 환경 이름이 <code class="highlighter-rouge">django15</code>이거나 해당 문자열이 포함되는 경우 <code class="highlighter-rouge">Django&gt;=1.5,&lt;1.6</code>이 설치되도록 설정한 것을 보여준다.</p>
+
+<p>설치되어야 하는 패키지가 많은 경우 <code class="highlighter-rouge">pip</code>를 사용하듯이 <code class="highlighter-rouge">requirements.txt</code>를 지정할 수 도 있다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>deps =
+    -r{toxinidir}/test-requirements.txt
+</code></pre></div></div>
+<p><code class="highlighter-rouge">commands</code>에는 테스트를 실행하기 위한 명령을 기술한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>commands =
+    python test.py
+</code></pre></div></div>
+
+<p>기본적으로 모든 <code class="highlighter-rouge">commands</code>는 <code class="highlighter-rouge">{toxinidir}</code> 즉, <code class="highlighter-rouge">tox.ini</code>파일이 존재하는 디렉토리에서 실행된다.  이 때 작업 디렉토리를 변경하고 싶다면 <code class="highlighter-rouge">changedir</code>에 명시하면 된다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[testenv:docs]
+changedir = docs
+deps =
+    sphinx
+commands =
+    sphinx-build -W -b html -d {envtmpdir}/doctrees . {envtmpdir}/html
+basepython = python3.7
+</code></pre></div></div>
+<p>이 외의 다양한 설정은 공식 문서(<a href="https://tox.readthedocs.io/en/latest/config.html">https://tox.readthedocs.io/en/latest/config.html</a>)를 참고한다.</p>
+
+<h2 id="실행-방법">실행 방법</h2>
+
+<p>간단히 아래와 같이 실행하면 전체 테스트를 수행하게 된다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tox
+</code></pre></div></div>
+<p>특정 환경을 지정해서 실행할 수 있다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tox -e py27
+</code></pre></div></div>
+<p>만약 패키지 설치를 포함하여 환경을 재구성하고 싶다면 다음과 같이 실행한다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tox -r
+</code></pre></div></div>
 
 <h2 id="참고-자료">참고 자료</h2>
 
 <ul>
-  <li><a href="https://code.visualstudio.com/docs/python/debugging">https://code.visualstudio.com/docs/python/debugging</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Tox_(Python_testing_wrapper)">https://en.wikipedia.org/wiki/Tox_(Python_testing_wrapper)</a></li>
+  <li><a href="https://tox.readthedocs.io/en/latest/example/basic.html#a-simple-tox-ini-default-environments">https://tox.readthedocs.io/en/latest/example/basic.html#a-simple-tox-ini-default-environments</a></li>
+  <li><a href="https://waprin.io/2015/05/21/introducing-tox.html">https://waprin.io/2015/05/21/introducing-tox.html</a></li>
 </ul>
 
 
@@ -232,15 +265,15 @@ TERMINAL 패널을 열어 Cinder CLI를 통해 이미지 조회를 해보자. �
 
                     <section class="share">
                         <h4>Share this post</h4>
-                        <a class="icon-twitter" href="http://twitter.com/share?text=Remote Debugging for OpenStack: cinder-api&amp;url=remote-debugging-cinder-1"
+                        <a class="icon-twitter" href="http://twitter.com/share?text=Tox: Python Test Automation Framework&amp;url=tox"
                             onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                             <span class="hidden">Twitter</span>
                         </a>
-                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=remote-debugging-cinder-1"
+                        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=tox"
                             onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                             <span class="hidden">Facebook</span>
                         </a>
-                        <a class="icon-google-plus" href="https://plus.google.com/share?url=remote-debugging-cinder-1"
+                        <a class="icon-google-plus" href="https://plus.google.com/share?url=tox"
                            onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                             <span class="hidden">Google+</span>
                         </a>
@@ -254,8 +287,8 @@ TERMINAL 패널을 열어 Cinder CLI를 통해 이미지 조회를 해보자. �
 <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'joonghyunlee'; // required: replace example with your forum shortname
-        var disqus_identifier = '/remote-debugging-cinder-1';
-        var disqus_url = '/remote-debugging-cinder-1';
+        var disqus_identifier = '/tox';
+        var disqus_url = '/tox';
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function() {
@@ -280,20 +313,20 @@ TERMINAL 패널을 열어 Cinder CLI를 통해 이미지 조회를 해보자. �
 
     <!-- [[! next_post ]] -->
     
-        <a class="read-next-story " style="background-image: url(/assets/images/cover4.jpg)" href="/tox">
+        <a class="read-next-story " style="background-image: url(/assets/images/cover2.jpg)" href="/windows-terminal">
             <section class="post">
-                <h2>Tox: Python Test Automation Framework</h2>
-                <p>Tox는 Python 프로젝트에 대한 테스트 자동화를 지원해주는 도구이다. Python 2 또는 3 등 다양한 환경에서의...</p>
+                <h2>Windows Terminal</h2>
+                <p>Terminal은 MicroSoft에서 기존 명령 프롬프트 및 PowerShell 터미널을 대체하고자 새로 출시한 터미널 프로그램이다. 기존 내장...</p>
             </section>
         </a>
     
     <!-- [[! /next_post ]] -->
     <!-- [[! prev_post ]] -->
     
-        <a class="read-next-story prev " style="background-image: url(/assets/images/cover2.jpg)" href="/pyflame-python-profiler">
+        <a class="read-next-story prev " style="background-image: url(/assets/images/cover5.jpg)" href="/remote-debugging-cinder-1">
             <section class="post">
-                <h2>Pyflame: Python CPU Profiler</h2>
-                <p>이 문서는 실행 중인 Python 어플리케이션을 프로파일링하기 위한 Pyflame에 대해 설명한다. 먼저 Pyframe을 이용한 프로파일링을...</p>
+                <h2>Remote Debugging for OpenStack: cinder-api</h2>
+                <p>이 문서에서는 Cinder 원격 디버깅에 대해서 다룬다. 본격적으로 들어가기 앞서 아래 문서를 읽고 기본 구성을...</p>
             </section>
         </a>
     
