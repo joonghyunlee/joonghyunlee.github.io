@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Page Meta -->
+    <title>Install OpenStack via Kolla-ansible</title>
+    <meta name="description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand icon -->
+    <link rel="shortcut icon" href="/jasper/assets/images/favicon.ico" >
+
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/jasper/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/jasper/assets/css/syntax.css" />
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- Ghost outputs important style and meta data with this tag -->
+        <link rel="canonical" href="/jasper//install-openstack-via-kolla-ansible" />
+    <meta name="referrer" content="origin" />
+    <link rel="next" href="/jasper/page2/" />
+
+    <meta property="og:site_name" content="Finding The Way Home" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Install OpenStack via Kolla-ansible" />
+    <meta property="og:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+    <meta property="og:url" content="/jasper//install-openstack-via-kolla-ansible" />
+    <meta property="og:image" content="/jasper/assets/images/cover3.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Install OpenStack via Kolla-ansible" />
+    <meta name="twitter:description" content="A beautiful narrative written with the world's most elegant publishing platform. The story begins here." />
+    <meta name="twitter:url" content="/jasper//install-openstack-via-kolla-ansible" />
+    <meta name="twitter:image:src" content="/jasper/assets/images/cover3.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Finding The Way Home",
+    "name": "Install OpenStack via Kolla-ansible",
+    "url": "/jasper//install-openstack-via-kolla-ansible",
+    "image": "/jasper/assets/images/cover3.jpg",
+    "description": "A beautiful narrative written with the world's most elegant publishing platform. The story begins here."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="Finding The Way Home" href="/jasper/feed.xml" />
+
+
+</head>
+<body class="home-template nav-closed">
+
+    <!-- The blog navigation links -->
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/jasper/">Home</a></li>
+        <li class="nav-about " role="presentation"><a href="/jasper/about">About</a></li>
+        <li class="nav-fables " role="presentation"><a href="/jasper/tag/fables">Fables</a></li>
+        <li class="nav-speeches " role="presentation"><a href="/jasper/tag/speeches">Speeches</a></li>
+        <li class="nav-fiction " role="presentation"><a href="/jasper/tag/fiction">Fiction</a></li>
+        <li class="nav-author " role="presentation"><a href="/jasper/author/casper">Casper</a></li>
+        <li class="nav-author " role="presentation"><a href="/jasper/author/edgar">Edgar</a></li>
+        <li class="nav-author " role="presentation"><a href="/jasper/author/abraham">Abraham</a></li>
+        <li class="nav-author " role="presentation"><a href="/jasper/author/martin">Martin</a></li>
+        <li class="nav-author " role="presentation"><a href="/jasper/author/lewis">Lewis</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/jasper/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head " style="background-image: url(/jasper/assets/images/cover3.jpg) ">
+    <nav class="main-nav  overlay  clearfix">
+        <a class="blog-logo" href="/jasper/"><img src="/jasper/assets/images/ghost.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-test tag-content">
+
+        <header class="post-header">
+            <h1 class="post-title">Install OpenStack via Kolla-ansible</h1>
+            <section class="post-meta">
+            <!-- <a href='/jasper/'></a> -->
+
+            
+                
+            
+            <time class="post-date" datetime="2020-11-02">02 Nov 2020</time>
+                <!-- [[tags prefix=" on "]] -->
+                
+                on
+                
+                    
+                       <a href='/jasper/tag/openstack'>Openstack</a>,
+                    
+                
+                    
+                       <a href='/jasper/tag/kolla'>Kolla</a>,
+                    
+                
+                    
+                       <a href='/jasper/tag/kolla-ansible'>Kolla-ansible</a>
+                    
+                
+                
+            </section>
+        </header>
+
+        <section class="post-content">
+
+            <p>이 문서에서는 kolla-ansible을 통해 OpenStack을 설치하는 것을 다룬다.</p>
+
+<h2 id="사전-준비">사전 준비</h2>
+
+<h3 id="virtualbox-설치">VirtualBox 설치</h3>
+
+<p>이 문서에서는 물리 노드 위에 Virtualbox를 이용해 가상 머신 여러 대를 구성하고 이 위에 kolla-ansible로 설치할 것이다. 이를 위해 먼저 Virtualbox를 설치하도록 하자. 혹시 이미 사용할 장비에 Virtualbox가 설치되어 있다면 건너 뛰어도 좋다. Virtualbox를 설치하기 위해 <a href="https://www.virtualbox.org/wiki/Downloads">공식 홈페이지</a>로부터 자신의 컴퓨터에 맞는 패키지를 찾아 내려받자. 여기서 사용할 장비는 Linux (CentOS 7)이므로 패키지를 다운 받은 후 다음과 같이 설치한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://download.virtualbox.org/virtualbox/6.1.16/VirtualBox-6.1-6.1.16_140961_el7-1.x86_64.rpm
+wget https://download.virtualbox.org/virtualbox/6.1.16/Oracle_VM_VirtualBox_Extension_Pack-6.1.16.vbox-extpack
+
+<span class="nb">sudo </span>yum install VirtualBox-6.1-6.1.16_140961_el7-1.x86_64.rpm
+<span class="nb">sudo </span>vboxmanage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.16.vbox-extpack
+</code></pre></div></div>
+
+<h3 id="vagrant-설치">Vagrant 설치</h3>
+
+<p>다음으로는 Vagrant를 설치한다. Vagrant 공식 홈페이지로부터 최신 패키지를 내려받은 후 다음과 같이 설치하자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://releases.hashicorp.com/vagrant/2.2.10/vagrant_2.2.10_x86_64.rpm
+
+<span class="nb">sudo </span>yum install vagrant_2.2.10_x86_64.rpm
+</code></pre></div></div>
+
+<p>그리고 필요한 Plugin 들도 다음과 같이 설치해준다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vagrant plugin install vagrant-hostmanager
+vagrant plugin install vagrant-vbguest
+</code></pre></div></div>
+
+<h3 id="openstack-kollakolla-ansible-설치">OpenStack Kolla/Kolla-ansible 설치</h3>
+
+<p>다음으로 Kolla와 Kolla-ansible 코드를 내려받자. 이 문서에서는 Queens 버전으로 진행할 것이기 때문에 최신 Queens stable 버전으로 체크아웃 한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone https://opendev.org/openstack/kolla-cli
+<span class="nv">$ </span><span class="nb">cd </span>kolla/
+<span class="nv">$ </span>git checkout <span class="nt">-t</span> remotes/origin/stable/queens
+<span class="nv">$ </span><span class="nb">cd</span> ..
+<span class="nv">$ </span>git clone https://opendev.org/openstack/kolla-ansible
+<span class="nv">$ </span><span class="nb">cd </span>kolla-ansible
+<span class="nv">$ </span>git checkout <span class="nt">-t</span> remotes/origin/stable/queens
+</code></pre></div></div>
+
+<h2 id="실행-준비하기">실행 준비하기</h2>
+
+<h3 id="vagrant-설정-변경">Vagrant 설정 변경</h3>
+
+<p>앞 서 설명한 모든 준비가 끝났다면 다음 경로로 이동하자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>kolla-ansible/contrib/dev/vagrant
+</code></pre></div></div>
+
+<p>이동한 폴더에는 kolla/kolla-ansible을 통해 OpenStack 설치 과정을 진행할 수 있도록 준비된 파일들이 있다. 공식 문서대로라면 이 폴더에서 <code class="highlighter-rouge">vagrant up</code>을 통해 즉시 실행할 수 있어야 하지만, 이 문서에서는 기본 설정을 조금 변경해서 진행할 것이다. 우선  <code class="highlighter-rouge">Vagrantfile.custom</code> 파일을 생성 해보자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>cp Vagrantfile.custom.example Vagrantfile.custom
+</code></pre></div></div>
+
+<p>이 파일은 사용자 지정이 가능한 설정을 변경할 수 있도록 도와 준다. 이 문서에서는 Virtualbox/Ubuntu 기반의 여러 가상 머신을 구성할 것이므로 다음과 같이 변경한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Either libvirt or virtualbox</span>
+PROVIDER <span class="o">=</span> <span class="s2">"virtualbox"</span>
+
+<span class="c"># Either centos or ubuntu</span>
+DISTRO <span class="o">=</span> <span class="s2">"ubuntu"</span>
+
+<span class="c"># Whether the host network adapter is Wi-Fi.</span>
+<span class="c"># On VirtualBox, the user must first manually create a NAT-Network</span>
+<span class="c"># named OSNetwork. The default network CIDR must be changed.</span>
+<span class="c"># The Neutron external interface will be connected to this Network.</span>
+WIFI <span class="o">=</span> <span class="nb">true</span>
+
+<span class="c"># Whether to do Multi-node or All-in-One deployment</span>
+MULTINODE <span class="o">=</span> <span class="nb">true</span>
+
+<span class="c"># The following is only used when deploying in Multi-nodes</span>
+NUMBER_OF_CONTROL_NODES <span class="o">=</span> 2
+NUMBER_OF_COMPUTE_NODES <span class="o">=</span> 2
+NUMBER_OF_STORAGE_NODES <span class="o">=</span> 1
+NUMBER_OF_NETWORK_NODES <span class="o">=</span> 1
+NUMBER_OF_MONITOR_NODES <span class="o">=</span> 1
+
+NODE_SETTINGS <span class="o">=</span> <span class="o">{</span>
+  aio: <span class="o">{</span>
+    cpus: 4,
+    memory: 4096
+  <span class="o">}</span>,
+  operator: <span class="o">{</span>
+    cpus: 2,
+    memory: 4096
+  <span class="o">}</span>,
+  control: <span class="o">{</span>
+    cpus: 4,
+    memory: 8192
+  <span class="o">}</span>,
+  compute: <span class="o">{</span>
+    cpus: 2,
+    memory: 4096
+  <span class="o">}</span>,
+  storage: <span class="o">{</span>
+    cpus: 1,
+    memory: 1024
+  <span class="o">}</span>,
+  network: <span class="o">{</span>
+    cpus: 2,
+    memory: 2048
+  <span class="o">}</span>,
+  monitor: <span class="o">{</span>
+    cpus: 1,
+    memory: 1024
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위 설정은 멀티 노드 구성을 활성화하고 앞으로의 원활한 테스트를 위해 일부 설정을 조정한 것이다. 각 노드 타입별 갯수와 CPU/RAM 구성은 각자 환경에 맞게 조정해도 좋다. 위 설정 값은 사용한 장비에서 몇 번 테스트하여 얻어진 것이다. 경험 상 Control 장비에 OpenStack 주요 서비스들과 mariadb, rabbitmq 등과 같은 보조 서비스들이 대부분 구동되므로 RAM 요구량이 상대적으로 높다.</p>
+
+<p>위 설정에서 WIFI를 쓰지도 않는데 설정해서 의아하게 생각할 지 모르겠다. 그렇지만 실제 Vagrant 구성에서 <code class="highlighter-rouge">WIFI</code> 변수 설정여부에 따라 Neutron external Network를 브릿지 모드로 구성할지 그렇지 않을지가 결정된다. 일반적인 장비에서 브릿지 모드를 활용하기는 어려우므로 우리는 Virtualbox의 NAT Network를 사용할 것이다. 참고로 Virtualbox에서 지원하는 네트워크들의 특성은 아래 표로 나타낼 수 있다. 자세한 설명은 <a href="https://www.virtualbox.org/manual/ch06.html">Virtualbox의 공식 가이드 문서</a>를 참고하자.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mode</th>
+      <th>VM -&gt; Host</th>
+      <th>VM &lt;- Host</th>
+      <th>VM1 &lt;-&gt; VM2</th>
+      <th>VM -&gt; Net/LAN</th>
+      <th>VM &lt;- Net/LAN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Host-only</td>
+      <td>O</td>
+      <td>O</td>
+      <td>O</td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td>Internal</td>
+      <td>X</td>
+      <td>X</td>
+      <td>O</td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td>Bridged</td>
+      <td>O</td>
+      <td>O</td>
+      <td>O</td>
+      <td>O</td>
+      <td>O</td>
+    </tr>
+    <tr>
+      <td>NAT</td>
+      <td>O</td>
+      <td>O<br />(Port Forward)</td>
+      <td>X</td>
+      <td>O</td>
+      <td>O<br />(Port Forward)</td>
+    </tr>
+    <tr>
+      <td>NAT Service</td>
+      <td>O</td>
+      <td>O<br />(Port Forward)</td>
+      <td>O</td>
+      <td>O</td>
+      <td>O<br />(Port Forward)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Vagrant에서 Virtualbox  NATNetwork를 사용할 수 있도록 다음과 같이 NAT Network를 생성해주자. 여기서는 Vagrantfile에서 지정된 대로 NAT Network의 이름을 “OSNetwork”로 생성하였다. 만약 다른 이름을 사용하고 싶다면 Vagrantfile을 수정해야 한다. IP 대역은 임의로 지정해도 무방하지만 나중에 Neutron의 외부 Network로 등록할 때 필요하므로 기억해두도록 하자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>VBoxManage natnetwork add <span class="nt">--netname</span> OSNetwork <span class="se">\</span>
+    <span class="nt">--network</span> <span class="s2">"133.186.0.0/24"</span> <span class="se">\</span>
+    <span class="nt">--enable</span> <span class="nt">--dhcp</span> off
+</code></pre></div></div>
+
+<p>마지막으로 operator 노드의 기본 디스크 크기를 다음과 같이 조정하자. 이 operator 노드에서 Kolla를 통해 docker 이미지들을 생성하는데 이 때 디스크 크기가 부족하게 되는 경우가 있었다. 기본 크기가 10GB인데 자신의 환경에서 가용한 크기 내에서 이보다는 큰 값으로 설정해야 한다. 여기서는 적당히 50GB로 설정하였다.</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      if PROVIDER == "libvirt"
+        vm.graphics_ip = GRAPHICSIP
+      end
+      configure_wifi_if_enabled(vm)
+    end
+    admin.hostmanager.aliases = "operator"
+<span class="gi">+   admin.disksize.size = "50GB"
+</span>  end
+</code></pre></div></div>
+
+<h3 id="bootstrap-스크립트-수정">Bootstrap 스크립트 수정</h3>
+
+<p>Kolla-ansible에서 제공되는 bootstrap.sh에는 몇 가지 수정이 필요한 항목이 있다. 첫 번째는 docker 설치하는 부분이다.  원래 코드에는 <code class="highlighter-rouge">docker-engine</code>을 설치하는데 그냥 진행하면 제대로 설치가 되지 않는다. 아래 코드를 반영해서 <code class="highlighter-rouge">docker-ce</code>를 설치하도록 하자.</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function cleanup {
+ # Install and configure a quick&amp;dirty docker daemon.
+ function install_docker {
+     if is_centos; then
+<span class="gd">-        cat &gt;/etc/yum.repos.d/docker.repo &lt;&lt;-EOF
+-[dockerrepo]
+-name=Docker Repository
+-baseurl=https://mirrors.mediatemple.net/docker/centos/7
+-enabled=1
+-gpgcheck=1
+-gpgkey=https://mirrors.aliyun.com/docker-engine/yum/gpg
+-EOF
+</span><span class="gi">+        yum -y install yum-utils
++        yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
++
+</span>         # Also upgrade device-mapper here because of:
+         # https://github.com/docker/docker/issues/12108
+         # Upgrade lvm2 to get device-mapper installed
+<span class="gd">-        yum -y install docker-engine lvm2 device-mapper
+</span><span class="gi">+        yum -y install docker-ce lvm2 device-mapper
+</span> 
+         # Despite it shipping with /etc/sysconfig/docker, Docker is not configured to
+         # load it from it's service file.
+<span class="gd">-        sed -i -r "s|(ExecStart)=(.+)|\1=/usr/bin/docker daemon --insecure-registry ${REGISTRY} --registry-mirror=http://${REGISTRY}|" /usr/lib/systemd/system/docker.service
+</span><span class="gi">+        mkdir -p /etc/docker
++        cat &gt;/etc/docker/daemon.json &lt;&lt;EOF
++{
++    "insecure-registries": ["${REGISTRY}"],
++    "registry-mirrors": ["http://${REGISTRY}"]
++}
++EOF
+</span>         sed -i 's|^MountFlags=.*|MountFlags=shared|' /usr/lib/systemd/system/docker.service
+ 
+         usermod -aG docker vagrant
+     elif is_ubuntu; then
+<span class="gd">-        apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+-        echo "deb https://mirrors.aliyun.com/docker-engine/apt/repo ubuntu-xenial main" &gt; /etc/apt/sources.list.d/docker.list
+-        apt-get update
+-        apt-get -y install docker-engine
+-        sed -i -r "s|(ExecStart)=(.+)|\1=/usr/bin/docker daemon --insecure-registry ${REGISTRY} --registry-mirror=http://${REGISTRY}|" /lib/systemd/system/docker.service
+</span><span class="gi">+        apt install apt-transport-https ca-certificates curl software-properties-common
++        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
++        apt-key fingerprint 0EBFCD88
++        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
++        apt update -y
++        apt-get -y install docker.io
++        sed -i -r "s|(ExecStart)=(.+)|\1=/usr/bin/dockerd --insecure-registry ${REGISTRY} --registry-mirror=http://${REGISTRY} --host fd:// --containerd=/run/containerd/containerd.sock|" /lib/systemd/system/doc
++        #apt install docker-ce -y
++        #sed -i -r "s|(ExecStart)=(.+)|\1=/usr/bin/docker daemon --insecure-registry ${REGISTRY} --registry-mirror=http://${REGISTRY}|" /lib/systemd/system/docker.service
+</span>     else
+         echo "Unsupported Distro: $DISTRO" 1&gt;&amp;2
+         exit 1
+</code></pre></div></div>
+
+<p>또한 docker 서비스 설치가 끝난 후 정상적으로 사설 repository (operator 노드에서 구동되는) 사설 docker 이미지 repository를 사용할 수 있도록 docker 서비스 재기동이 필요하다. 아래의 코드를 수정해 두자.</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    systemctl daemon-reload
+    systemctl enable docker
+<span class="gd">-   systemctl start docker
+</span><span class="gi">+   systemctl restart docker
+</span></code></pre></div></div>
+
+<h3 id="vagrant-실행-및-가상-머신-점검">Vagrant 실행 및 가상 머신 점검</h3>
+
+<p>이제 모든 준비가 끝났다. 다음 명령어를 실행하여 Vagrant를 통해 가상 머신들을 구동하자. 명령어를 실행한 후 수 분에서 수십 분이 흐르면 완료된다. 모든 가상 머신들이 다 구동 되었다면 operator 노드로 접근하자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>vagrant up
+...
+<span class="nv">$ </span>vagrant status
+
+Current machine states:
+
+operator                  running <span class="o">(</span>virtualbox<span class="o">)</span>
+compute01                 running <span class="o">(</span>virtualbox<span class="o">)</span>
+compute02                 running <span class="o">(</span>virtualbox<span class="o">)</span>
+storage01                 running <span class="o">(</span>virtualbox<span class="o">)</span>
+network01                 running <span class="o">(</span>virtualbox<span class="o">)</span>
+control01                 running <span class="o">(</span>virtualbox<span class="o">)</span>
+control02                 running <span class="o">(</span>virtualbox<span class="o">)</span>
+
+This environment represents multiple VMs. The VMs are all listed
+above with their current state. For more information about a specific
+VM, run <span class="sb">`</span>vagrant status NAME<span class="sb">`</span><span class="nb">.</span>
+<span class="nv">$ </span>vagrant ssh operator
+Welcome to Ubuntu 16.04.7 LTS <span class="o">(</span>GNU/Linux 4.4.0-193-generic x86_64<span class="o">)</span>
+
+ <span class="k">*</span> Documentation:  https://help.ubuntu.com
+ <span class="k">*</span> Management:     https://landscape.canonical.com
+ <span class="k">*</span> Support:        https://ubuntu.com/advantage
+
+4 packages can be updated.
+0 updates are security updates.
+
+Last login: Tue Oct 20 07:07:30 2020 from 10.0.2.2
+vagrant@operator:~<span class="err">$</span>
+</code></pre></div></div>
+
+<p>본격적으로 kolla-ansible을 실행하기 전에 몇 가지 확인 작업이 더 필요하다. 먼저 ansible이 다른 노드로 접근할 수 있도록 노드 간 ssh 접근을 확인해야 한다. 이는 정상적으로 네트워크가 구성 되었는지 확인이 필요할 뿐만 아니라 노드 별 호스트 키를 ssh의 알려진 노드로 등록해야 때문이다. 앞 서 나온 <code class="highlighter-rouge">[bootstrap.sh](http://bootstrap.sh)</code> 스크립트에서 ssh 키페어를 생성하여 root 계정 설정에 넣어 두기 때문에 아래 예제와 같이 root 계정으로 실행해야 한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>su
+<span class="c"># ssh control01</span>
+...
+<span class="c"># ssh control02</span>
+...
+<span class="c"># ssh compute01</span>
+...
+<span class="c"># ssh compute02</span>
+...
+<span class="c"># ssh network01</span>
+The authenticity of host <span class="s1">'network01 (172.28.128.23)'</span> can<span class="s1">'t be established.
+ECDSA key fingerprint is SHA256:N1UKRYQBYRSSC4VET4nj+YICK7spmvAnFAeTwqYnRxk.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '</span>network01<span class="s1">' (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 16.04.7 LTS (GNU/Linux 4.4.0-193-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+4 packages can be updated.
+0 updates are security updates.
+
+Last login: Thu Oct 22 02:01:18 2020 from 172.28.128.19
+root@network01:~#
+</span></code></pre></div></div>
+
+<p>또한 각 노드 별로 docker 서비스에 사설 repository를 사용할 수 있도록 등록되어 있는지 확인한다. Docker 서비스의 명령행 인자로 <code class="highlighter-rouge">--insecure-registry</code>, <code class="highlighter-rouge">--registry-mirror</code>가 포함되어 있어야 한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># systemctl status docker.service</span>
+<span class="k">*</span> docker.service - Docker Application Container Engine
+   Loaded: loaded <span class="o">(</span>/lib/systemd/system/docker.service<span class="p">;</span> enabled<span class="p">;</span> vendor preset: enabled<span class="o">)</span>
+   Active: active <span class="o">(</span>running<span class="o">)</span> since Thu 2020-10-22 01:44:27 UTC<span class="p">;</span> 1 weeks 3 days ago
+     Docs: https://docs.docker.com
+ Main PID: 12577 <span class="o">(</span>dockerd<span class="o">)</span>
+    Tasks: 19
+   Memory: 206.1M
+      CPU: 9min 19.946s
+   CGroup: /system.slice/docker.service
+           <span class="sb">`</span><span class="nt">-12577</span> /usr/bin/dockerd <span class="nt">--insecure-registry</span> operator.local:5000 <span class="nt">--registry-mirror</span><span class="o">=</span>http://operator.local:5000 <span class="nt">--host</span> fd:// <span class="nt">--containerd</span><span class="o">=</span>/run/containerd/containerd.sock
+</code></pre></div></div>
+
+<blockquote>
+  <p>이후 다른 명령어는 ubuntu 계정으로 실행해야 한다.</p>
+</blockquote>
+
+<h3 id="ansible-레시피-수정">Ansible 레시피 수정</h3>
+
+<p>이 문서에서 진행하는 kolla-ansible는 OpenStack Queens에 대응하는 버전으로서 현 시점에서는 좀 오래된 버전이다. 그러다 보니 기본 제공되는 레시피의 문법 중 일부는 더 이상 지원하지 않는다. 대표적으로 <code class="highlighter-rouge">| changed</code>, <code class="highlighter-rouge">| success</code>가 있다. Ansible의 레시피 정의는 operator 노드의 <code class="highlighter-rouge">/usr/local/share/kolla-ansible/ansible</code> 하위에 있다. 이 경로에 있는 모든 YAML 파일의 <code class="highlighter-rouge">| changed</code>, <code class="highlighter-rouge">| success</code> 패턴에 대해 다음과 같이 수정한다.</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">-    - horizon_config_json | changed
+</span><span class="gi">+    - horizon_config_json is changed
+</span>...
+<span class="gd">-  until: check_keystone_ssh_port | success
+</span><span class="gi">+  until: check_keystone_ssh_port is success
+</span>...
+
+</code></pre></div></div>
+
+<p>또한 <code class="highlighter-rouge">issuperset</code> 도 더 이상 지원하지 않는다. 다음과 같이 수정하자.</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">-      | issuperset(expected_compute_service_hosts)
+</span><span class="gi">+      is superset(expected_compute_service_hosts)
+</span></code></pre></div></div>
+
+<p>마지막으로 Python2 미지원 경고 문구를 제거할 수 있도록 다음과 같이 환경 변수 설정을 추가하자.</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">--- kolla-ansible/ansible/roles/common/defaults/main.yml	2020-10-21 05:54:17.792578544 +0000
+</span><span class="gi">+++ /usr/local/share/kolla-ansible/ansible/roles/common/defaults/main.yml	2020-10-15 15:41:06.656578544 +0000
+</span><span class="gu">@@ -21,6 +21,7 @@
+</span>     environment:
+       ANSIBLE_NOCOLOR: "1"
+       ANSIBLE_LIBRARY: "/usr/share/ansible"
+<span class="gi">+      PYTHONWARNINGS: "ignore::UserWarning"
+</span></code></pre></div></div>
+
+<h3 id="dockerfile-수정">Dockerfile 수정</h3>
+
+<p>Kolla-ansible이 실행될 때 사용하는 <code class="highlighter-rouge">kolla-toolbox</code>라는 이미지가 있다. 이 이미지를 빌드할 때 특정 패키지의 버전이 낮아 설치에 실패하는 경우가 있다. 이를 방지하기 위해 <code class="highlighter-rouge">kolla-toolbox</code>에 대한 Dockerfile을 다음과 같이 수정하자.</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh">diff -urN kolla/docker/kolla-toolbox/Dockerfile.j2 /usr/local/share/kolla/docker/kolla-toolbox/Dockerfile.j2
+</span><span class="gd">--- kolla/docker/kolla-toolbox/Dockerfile.j2    2020-10-21 10:59:37.944578544 +0000
+</span><span class="gi">+++ /usr/local/share/kolla/docker/kolla-toolbox/Dockerfile.j2   2020-10-15 16:18:20.832578544 +0000
+</span><span class="gu">@@ -81,14 +81,14 @@
+</span>         'ansible==2.2.0.0',
+         '"cmd2&lt;0.9.0"',
+         'MySQL-python',
+<span class="gd">-        'os-client-config==1.28.0',
+</span><span class="gi">+        'os-client-config==1.29.0',
+</span>         '"openstacksdk&lt;0.18"',
+<span class="gd">-        'pbr==2.0.0',
+</span><span class="gi">+        'pbr==4.0.0',
+</span>         'pymongo',
+<span class="gd">-        'python-openstackclient==3.12.0',
+</span><span class="gi">+        'python-openstackclient==3.14.0',
+</span>         'pytz',
+         'pyudev',
+<span class="gd">-        'shade==1.16.0'
+</span><span class="gi">+        'shade==1.27.1'
+</span>     ] %}
+</code></pre></div></div>
+
+<p>이제 Kolla를 실행할 준비가 끝났다. 물론 아직 Kolla-ansible을 통해 OpenStack 설치를 진행하기 까지 필요한 과정은 더 남았긴 하지만 말이다.</p>
+
+<h2 id="이미지-빌드하기">이미지 빌드하기</h2>
+
+<p>Kolla-ansible을 통해 OpenStack을 설치하려면 먼저 필요한 이미지들을 빌드해야 한다. 이 문서에서는 가장 기본이 되는 Keystone, Nova, Neutron, Glance, Heat 정도만 설치한다. 물론 Kolla/Kolla-ansible 설정을 수정하여 다른 프로젝트들도 활성화할 수 있다. 하지만 그 부분은 여러분들의 몫으로 남겨두겠다.</p>
+
+<p>먼저 빌드 옵션을 수정하자. 빌드 옵션은 operator 노드의 <code class="highlighter-rouge">/etc/kolla/kolla-build.conf</code>에 있다. 해당 파일의 내용 중 일부 항목을 다음과 같이 수정하자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>base <span class="o">=</span> ubuntu
+profile <span class="o">=</span> default
+regex <span class="o">=</span> 
+tag <span class="o">=</span> 6.2.5
+default <span class="o">=</span> chrony,cron,kolla-toolbox,fluentd,glance,haproxy,heat,horizon,keepalived,keystone,mariadb,memcached,neutron,nova-,openvswitch,rabbitmq
+</code></pre></div></div>
+
+<p>설정 파일을 수정한 후 닫고 나와 다음 명령어를 실행한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kolla-build
+</code></pre></div></div>
+
+<p>혹은 아래와 같이 빌드할 이미지를 지정할 수도 있다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kolla-build keystone
+</code></pre></div></div>
+
+<p>한참을 기다리면 이미지가 모두 성공적으로 빌드되었다고 할 것이다. 혹시 중간에 에러가 발생한 이미지는 없는지 살펴보도록 하자.</p>
+
+<h2 id="실행하기">실행하기</h2>
+
+<p>자 이제 거의 다왔다. Ansible을 실행하기 전 마지막으로 OpenStack 구성 설정을 해줘야 한다. 아래처럼 <code class="highlighter-rouge">/etc/kolla/globals.yaml</code> 파일을 수정하자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kolla_base_distro: <span class="s2">"ubuntu"</span>
+openstack_release: <span class="s2">"6.2.5"</span>
+kolla_internal_vip_address: <span class="s2">"172.28.128.254"</span>
+network_interface: <span class="s2">"enp0s8"</span>
+neutron_external_interface: <span class="s2">"enp0s9"</span>
+neutron_plugin_agent: <span class="s2">"openvswitch"</span>
+enable_fluentd: <span class="s2">"no"</span>
+</code></pre></div></div>
+
+<p>위 설정에서 <code class="highlighter-rouge">fluentd</code>설치를 비활성화하였다. 이는 이후 컨테이너 구동 단계에서 동작하지 않기 때문이었다. 무책임하지만 이 문서에서는 그냥 넘어가기로 하였다.</p>
+
+<p>다음으로 <code class="highlighter-rouge">/usr/local/share/kolla-ansible/ansible/inventory/multinode</code> 파일을 열어 노드 현황을 업데이트 하자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># These initial groups are the only groups required to be modified. The</span>
+<span class="c"># additional groups are for more control of the environment.</span>
+<span class="o">[</span>control]
+<span class="c"># These hostname must be resolvable from your deployment host</span>
+control01
+control02
+<span class="c">#control03</span>
+
+<span class="c"># The above can also be specified as follows:</span>
+<span class="c">#control[01:03]     ansible_user=kolla</span>
+
+<span class="c"># The network nodes are where your l3-agent and loadbalancers will run</span>
+<span class="c"># This can be the same as a host in the control group</span>
+<span class="o">[</span>network]
+network01
+<span class="c">#network02</span>
+
+<span class="c"># inner-compute is the groups of compute nodes which do not have</span>
+<span class="c"># external reachability</span>
+<span class="o">[</span>inner-compute]
+
+<span class="c"># external-compute is the groups of compute nodes which can reach</span>
+<span class="c"># outside</span>
+<span class="o">[</span>external-compute]
+compute01
+compute02
+
+<span class="o">[</span>compute:children]
+inner-compute
+external-compute
+
+<span class="o">[</span>monitoring]
+<span class="c">#monitoring01</span>
+</code></pre></div></div>
+
+<p>그 다음은 OpenStack 설치할 때 사용하는 패스워드 설정이 필요하다. 간단하게 다음 명령을 실행하자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kolla-genpwd
+</code></pre></div></div>
+
+<p>이제 정말 모든 준비가 다 끝났다. 아래의 명령을 통해 <code class="highlighter-rouge">kolla</code>를 실행해보자. 억겁의 시간이 흐른 뒤 완료된다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>kolla-ansible deploy <span class="nt">-i</span> /usr/local/share/kolla-ansible/ansible/inventory/multinode
+</code></pre></div></div>
+
+<h2 id="검증하기">검증하기</h2>
+
+<p>뭔가 스크립트 상으로 설치는 끝났다고 나온다. 정말 제대로 설치된 것인가? 정상 설치 여부를 확인하기 위해 Neutron의 네트워크를 구성하고 Glance 이미지를 준비한 후 Nova의 키페어/Flavor를 생성한 뒤, 이를 이용해 Nova 인스턴스를 생성하고 접속 테스트를 할 것이다.</p>
+
+<p>다행히도 Kolla-ansible에서는 이러한 상황에 사용할 수 있는 스크립트를 미리 준비되었다. 이 스크립트를 실행하기 위해서는 앞서 설정한 외부 네트워크 대역을 인식할 수 있도록 약간의 수정이 필요하다. Operator 노드의 <code class="highlighter-rouge">/usr/local/share/kolla-ansible/init-runonce</code>파일을 열어 다음과 같이 수정하자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># This EXT_NET_CIDR is your public network,that you want to connect to the internet via.</span>
+<span class="nv">EXT_NET_CIDR</span><span class="o">=</span><span class="s1">'133.186.0.0/24'</span>
+<span class="nv">EXT_NET_RANGE</span><span class="o">=</span><span class="s1">'start=133.186.0.150,end=133.186.0.199'</span>
+<span class="nv">EXT_NET_GATEWAY</span><span class="o">=</span><span class="s1">'133.186.0.1'</span>
+</code></pre></div></div>
+
+<p>검증 스크립트를 실행하기 전 다음과 같이 OpenStack 환경 변수를 설정한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source</span> /etc/kolla/admin-openrc.sh
+</code></pre></div></div>
+
+<p>이제 검증 스크립트를 실행하면 자동으로 네트워크를 구성하고 Nova 인스턴스가 생성될 것이다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>/usr/local/share/kolla-ansible/init-runonce
+...
+<span class="nv">$ </span>nova list
++--------------------------------------+-------+--------+------------+-------------+--------------------+
+| ID                                   | Name  | Status | Task State | Power State | Networks           |
++--------------------------------------+-------+--------+------------+-------------+--------------------+
+| 851c59cc-ea40-40b1-92e1-7acd0cb548c4 | demo1 | ACTIVE | -          | Running     | demo-net<span class="o">=</span>10.0.0.18 |
++--------------------------------------+-------+--------+------------+-------------+--------------------+
+</code></pre></div></div>
+
+<p>보다시피 아직 인스턴스에 접근하기 위한 Floating IP가 없는 상태이다. 다음과 같이 Floating IP를 생성하고 인스턴스에 붙여주자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">PUBLIC_NET_ID</span><span class="o">=</span><span class="sb">`</span>neutron net-list | <span class="nb">grep </span>public1 | awk <span class="s1">'{print $2}'</span><span class="sb">`</span>
+<span class="nv">NOVA_INSTANCE_ID</span><span class="o">=</span><span class="sb">`</span>nova list | <span class="nb">grep </span>demo1 | awk <span class="s1">'{print $2}'</span><span class="sb">`</span>
+<span class="nv">FLOATING_IP_ADDRESS</span><span class="o">=</span><span class="sb">`</span>neutron floatingip-create <span class="nv">$PUBLIC_NET_ID</span> | <span class="nb">grep </span>floating_ip_address | awk <span class="s1">'{print $4}'</span><span class="sb">`</span>
+openstack server add floating ip <span class="nv">$NOVA_INSTANCE_ID</span> <span class="nv">$FLOATING_IP_ADDRESS</span>
+</code></pre></div></div>
+
+<p>인스턴스에 접근하기 위해서는 호스트 장비에서 포트 포워딩을 통해 접근해야 한다. 새로운 터미널 창을 띄우고 다음과 같이 Virtualbox 설정을 하자. 아래의 명령은 호스트 장비의 13310 포트에서 NAT Network의 133.186.0.10의 22번 포트로 접근하도록 설정한 것이다. 이 때 목적지 IP는 앞서 받은 Floating IP 주소로 해야 한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vboxmanage natnetwork modify <span class="nt">--netname</span> OSNetwork <span class="nt">--port-forward-4</span> <span class="s2">"ssh:tcp:[]:13310:[133.186.0.10]:22"</span>
+</code></pre></div></div>
+
+<p>이제 인스턴스에 접근해보자. 정상적으로 Cirros 프롬프트가 뜬다면 성공한 것이다. 축하한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-p</span> 13310 localhost
+</code></pre></div></div>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+                
+            
+
+            <!-- Add Disqus Comments -->
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'joonghyunlee'; // required: replace example with your forum shortname
+        var disqus_identifier = '/install-openstack-via-kolla-ansible';
+        var disqus_url = '/install-openstack-via-kolla-ansible';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+            
+
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev " style="background-image: url(/jasper/assets/images/cover2.jpg)" href="/jasper/pyflame-python-profiler">
+            <section class="post">
+                <h2>Pyflame - Ptracing Profiler</h2>
+                <p>이 문서는 실행 중인 Python 어플리케이션을 프로파일링하기 위한 Pyflame에 대해 설명한다. 먼저 Pyframe을 이용한 프로파일링을...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <!-- The tiny footer at the very bottom -->
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/jasper/">Finding The Way Home</a> &copy; 2020</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/jekyller/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- jQuery needs to come before `` so that jQuery can be used in code injection -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Ghost outputs important scripts and data with this tag -->
+    <!--  -->
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-69281367-1', 'auto');
+	    ga('send', 'pageview');
+
+     </script>
+    <!-- Fitvids makes video embeds responsive and awesome -->
+    <script type="text/javascript" src="/jasper/assets/js/jquery.fitvids.js"></script>
+    <!-- The main JavaScript file for Casper -->
+    <script type="text/javascript" src="/jasper/assets/js/index.js"></script>
+
+</body>
+</html>
